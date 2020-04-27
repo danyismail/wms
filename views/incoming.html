@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../static/AdminLTE/plugins/jquery/jquery.min.js"></script>
+</head>
+<body>
+    
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <td>Transaction ID</td>
+                <td>Tanggal</td>
+                <td>Lokasi</td>
+                <td>Kode Barang</td>
+                <td>Nama Barang</td>
+                <td>Satuan</td>
+                <td>Jumlah</td>
+                <td colspan="2">Proses</td>
+            </tr>
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+    
+    <script>
+        $.ajax({
+            url: "http://localhost:8080/goods",
+            method : "GET",
+            contentType: 'application/json',
+    }   )
+        .then(data=>{
+            data.forEach(element => {
+                console.log(element);
+                $("tbody").append(
+                    "<tr>"+
+                    "<td>"+ element.transaksi_id +"</td>" +
+                    "<td>"+ element.tanggal +"</td>" +
+                    "<td>"+ element.lokasi +"</td>" +
+                    "<td>"+ element.kodebarang +"</td>" +
+                    "<td>"+ element.namabarang +"</td>" +
+                    "<td>"+ element.satuan +"</td>" +
+                    "<td>"+ element.jumlah +"</td>" +
+                    "<td><a href='incoming/edit/"+ element.id + "'> Ubah<a/></td>" +
+                    "<td><a href='incoming/delete/"+ element.id + "'> Hapus<a/></td>" +
+                    "</tr>"
+                )
+            });
+        })
+        .catch(e=>{
+            console.log(e)
+        })
+    </script>
+</body>
+</html>
