@@ -2,33 +2,28 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	// "strconv"
-	"webgudang/models"
+	Units "webgudang/repo/units"
 	"github.com/astaxie/beego/orm"
-	"encoding/json"
 )
 
 type UnitController struct {
 	beego.Controller
 }
 
-func (c *UnitController) View() {	
+func (c *UnitController) All() {	
 	o := orm.NewOrm()
-    o.Using("default")
+	o.Using("default")
+	
+	repo := Units.UnitRepo{}
+	result, err := repo.GetAll()
 
-    var arrUnit []*models.Unit
-    num, err := o.QueryTable("unit").All(&arrUnit)
+	if err != nil {
 
-    if err != orm.ErrNoRows && num > 0 {
-		out, errJ := json.Marshal(arrUnit) //Konversi dari struct ke string
-		//Handle error
-		if errJ != nil {
-			panic (errJ)
-		}
-	c.Data["unit"] = string(out)
+	}
+
+	c.Data["units"] = result
 	c.Layout = "template.html"
 	c.TplName = "unit.html"
-	}
 	
 }
 

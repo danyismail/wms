@@ -2,34 +2,28 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	// "strconv"
-	"webgudang/models"
+	Users "webgudang/repo/users"
 	"github.com/astaxie/beego/orm"
-	"encoding/json"
 )
 
 type UserController struct {
 	beego.Controller
 }
 
-func (c *UserController) View() {
+func (c *UserController) All() {
 	o := orm.NewOrm()
-    o.Using("default")
-
-    var arrUser []*models.User
-    num, err := o.QueryTable("user").All(&arrUser)
-
-    if err != orm.ErrNoRows && num > 0 {
-		out, errJ := json.Marshal(arrUser) //Konversi dari struct ke string
-		//Handle error
-		if errJ != nil {
-			panic (errJ)
-		}
-	c.Data["users"] = string(out)
-	c.Layout = "template.html"
-	c.TplName = "users.html"
-	}
+	o.Using("default")
 	
+	repo := Users.UsersRepo{}
+
+	result, err := repo.GetAll()
+	if err != nil {
+		panic(err)
+	}
+
+	c.Data["list"] = result
+	c.Layout = "template.html"
+	c.TplName = "users.html"	
 }
 
 

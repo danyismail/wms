@@ -7,7 +7,15 @@
     <script src="../static/AdminLTE/plugins/jquery/jquery.min.js"></script>
 </head>
 <body>
-    
+      <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
+        Input Barang 
+      </button>
+
+      <div>
+        <!--Blank area for spacer-->
+      </div>
+      {{ .pesan}}
+      <br>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -22,38 +30,72 @@
             </tr>
         </thead>
         <tbody>
-            
+        {{range $index, $elem := .incoming}}
+        <tr>
+            <td>{{$elem.TransaksiId}}</td>
+            <td>{{$elem.Tanggal}}</td>
+            <td>{{$elem.Lokasi}}</td>
+            <td>{{$elem.KodeBarang}}</td>
+            <td>{{$elem.NamaBarang}}</td>
+            <td>{{$elem.Satuan}}</td>
+            <td>{{$elem.Jumlah}}</td>
+            <td><a href="/incoming-goods/detail/{{$elem.Id}}">Ubah</a></td>
+            <td><a href="/incoming-goods/detail/{{$elem.Id}}">Kirim</a></td>
+        </tr>
+        {{end}}
         </tbody>
     </table>
 
-    
-    <script>
-        $.ajax({
-            url: "http://localhost:8080/goods",
-            method : "GET",
-            contentType: 'application/json',
-    }   )
-        .then(data=>{
-            data.forEach(element => {
-                console.log(element);
-                $("tbody").append(
-                    "<tr>"+
-                    "<td>"+ element.transaksi_id +"</td>" +
-                    "<td>"+ element.tanggal +"</td>" +
-                    "<td>"+ element.lokasi +"</td>" +
-                    "<td>"+ element.kodebarang +"</td>" +
-                    "<td>"+ element.namabarang +"</td>" +
-                    "<td>"+ element.satuan +"</td>" +
-                    "<td>"+ element.jumlah +"</td>" +
-                    "<td><a href='incoming/edit/"+ element.id + "'> Ubah<a/></td>" +
-                    "<td><a href='incoming/delete/"+ element.id + "'> Hapus<a/></td>" +
-                    "</tr>"
-                )
-            });
-        })
-        .catch(e=>{
-            console.log(e)
-        })
-    </script>
+    <div class="modal fade" id="modal-default">
+        <div class="modal-dialog">
+          <div class="modal-content">
+                <!-- general form elements -->
+                <div class="card card-primary">
+                  <div class="card-header">
+                    <h3 class="card-title">Input barang masuk</h3>
+                  </div>
+                  <!-- /.card-header -->
+                  <!-- form start -->
+                  <form role="form" method="post" action="/incoming-goods/add">
+                    <div class="card-body">
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Lokasi </label>
+                        <input type="text" class="form-control" name="lokasi">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Kode </label>
+                        <input type="text" class="form-control" name="kode">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Nama Barang </label>
+                        <input type="text" class="form-control" name="nama">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Satuan </label>
+                        <input type="text" class="form-control" name="satuan">
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1">Jumlah </label>
+                        <input type="text" class="form-control" name="jumlah">
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                      <button type="submit">Tambah</button>
+                    </div>
+                  </form>
+                </div>
+                <!-- /.card -->
+          </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      <!-- /.modal -->
 </body>
 </html>
