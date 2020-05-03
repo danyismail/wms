@@ -34,19 +34,25 @@ func (c *MainController) All() {
 
 func (c *MainController) Add() {
 	goodsRepo := repo.GoodsRepo{}
+
 	goodsModel :=  models.Incoming{}
+	
 	newTrx := generateTrxID()
-	goodsModel.TransaksiId = newTrx
-
+	
 	t := time.Now()
-
+	
+	//mau nampung data dari form
+	goodsModel.TransaksiId = newTrx
 	goodsModel.Tanggal = t.Format("2006/01/02 15:04:05")
 	goodsModel.Lokasi = c.GetString("lokasi")
 	goodsModel.KodeBarang = c.GetString("kode")
 	goodsModel.NamaBarang = c.GetString("nama")
 	goodsModel.Satuan = c.GetString("satuan")
+	
 	i, _ := strconv.Atoi(c.GetString("jumlah"))
 	goodsModel.Jumlah = i
+
+
 	result, err := goodsRepo.Add(goodsModel)
 
 	if err != nil {
@@ -74,9 +80,24 @@ func (c *MainController) Detail() {
 	}
 	
 	fmt.Println("error result",result)
-	c.Data["ojan"] = result
+	c.Data["detail"] = result
 	c.Layout = "template.html"
 	c.TplName = "detail.html"
+}
+
+func (c *MainController) Delete() {
+	goodsRepo := repo.GoodsRepo{}
+
+	id := c.Ctx.Input.Param(":id")
+	i, _ := strconv.Atoi(id)
+
+	num, err := goodsRepo.Delete(i)
+
+	if err != nil {
+		fmt.Println("Error repo",err)
+	}
+	c.Data["pesan"] = string(num)
+	c.Redirect("/incoming-goods",302)
 }
 
 //Helper Function

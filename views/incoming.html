@@ -26,7 +26,7 @@
                 <td>Nama Barang</td>
                 <td>Satuan</td>
                 <td>Jumlah</td>
-                <td colspan="2">Proses</td>
+                <td colspan="3">Proses</td>
             </tr>
         </thead>
         <tbody>
@@ -41,6 +41,7 @@
             <td>{{$elem.Jumlah}}</td>
             <td><a href="/incoming-goods/detail/{{$elem.Id}}">Ubah</a></td>
             <td><a href="/incoming-goods/detail/{{$elem.Id}}">Kirim</a></td>
+            <td><a href="/incoming-goods/delete/{{$elem.Id}}">Hapus</a></td>
         </tr>
         {{end}}
         </tbody>

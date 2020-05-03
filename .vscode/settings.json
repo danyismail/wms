@@ -1,0 +1,9 @@
+{
+    "editor.fontFamily": "Consolas",
+    "editor.fontLigatures": true,
+    "editor.quickSuggestions": true,
+    "editor.formatOnPaste": true,
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    "go.gopath": "",
+    "go.docsTool": "gogetdoc"
+}

@@ -33,16 +33,29 @@ func (repo *GoodsRepo) GetById(id int) (result models.Incoming ,err error){
 	err = o.QueryTable("incoming").Filter("id", id).One(&DetailBarang)
 	if err == orm.ErrMultiRows {
 		// Have multiple records
-		fmt.Printf("Returned Multi Rows Not One")
+		fmt.Println("Returned Multi Rows Not One")
 		}
 		if err == orm.ErrNoRows {
-		fmt.Printf("Not row found")
+		fmt.Println("Not row found")
 		}
 	return DetailBarang, nil
 }	
 
+func (repo *GoodsRepo) Delete(id int) (num int64 ,err error){
+	o := orm.NewOrm()
+	o.Using("default")
+	
+	num, err = o.QueryTable("incoming").Filter("id", id).Delete()
+	if err != nil {
+		fmt.Println(num)
+			return num, nil
+		}
+		
+	return num, nil
+}	
 
-func (repo *GoodsRepo) Add(form models.Incoming) (bool, error){
+
+func (repo *GoodsRepo) Add(form models.Incoming) ( bool, error){
 	o := orm.NewOrm()
 	o.Using("default")
 	id, err := o.Insert(&form)

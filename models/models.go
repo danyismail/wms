@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-    Id       int        `json:"id"`
+    Id          int     `json:"id"`
     Username    string  `json:"username"`
     Email       string  `json:"email"`
     Password    string  `json:"password"`
@@ -39,12 +39,12 @@ type Outcoming struct {
 }
 
 type Users struct {
-  Id            int       `json:"id"`
+  Id            int        `json:"id"`
   Username      string     `json:"username"`
   Email         string     `json:"email"`
   Password      string     `json:"password"`
   Role          int        `json:"role"`
-  LastLogin     string    `json:"lastLogin"`
+  LastLogin     string     `json:"lastLogin"`
 }
 
 type Units struct {

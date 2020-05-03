@@ -19,6 +19,7 @@ func init() {
 	beego.Router("/incoming-goods",&Incoming.MainController{}, "get:All")
 	beego.Router("/incoming-goods/add",&Incoming.MainController{}, "post:Add")
 	beego.Router("/incoming-goods/detail/:id([0-9]+)", &Incoming.MainController{}, "get:Detail")
+	beego.Router("/incoming-goods/delete/:id([0-9]+)", &Incoming.MainController{}, "get:Delete")
 	
 	beego.Router("/outcoming-goods", &Outcoming.MainController{})
 	beego.Router("/outcoming-goods/detail", &Outcoming.MainController{})

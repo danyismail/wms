@@ -18,7 +18,7 @@ func main() {
         // beego.BConfig.WebConfig.StaticDir["/static"] = "static"
 	}
 
-	orm.Debug = true
+	orm.Debug = false
 	beego.Run()
 }
 

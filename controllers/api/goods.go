@@ -108,4 +108,8 @@ func (c *MainController) Delete() {
 	}
 	c.Data["data"] = detailBarangKeluar
 	c.TplName = "detail.html"
+
+
+	
 }
+
