@@ -2,8 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	Users "webgudang/repo/users"
-	"github.com/astaxie/beego/orm"
+	Users "wms/repo/users"
 )
 
 type UserController struct {
@@ -11,14 +10,14 @@ type UserController struct {
 }
 
 func (c *UserController) All() {
-	o := orm.NewOrm()
-	o.Using("default")
 	
 	repo := Users.UsersRepo{}
 
 	result, err := repo.GetAll()
 	if err != nil {
-		panic(err)
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "users.html"
 	}
 
 	c.Data["list"] = result

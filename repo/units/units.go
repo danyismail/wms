@@ -1,24 +1,23 @@
 package repo
 
-import "webgudang/models"
+import "wms/database"
+import "wms/models"
 import "github.com/astaxie/beego"
-import "github.com/astaxie/beego/orm"
-import "fmt"
+// import "github.com/astaxie/beego/orm"
+// import "fmt"
 
 type UnitRepo struct{
 	beego.Controller
 }
 
 func (repo *UnitRepo) GetAll() (result []models.Units ,err error){
-	o := orm.NewOrm()
-    o.Using("default")
-
+	
     var units []models.Units
-    num, err := o.QueryTable("units").All(&units) //select * from incoming
-
-    if err != orm.ErrNoRows && num > 0 {
-		fmt.Println(err)
+	
+	if result := database.DB.Find(&units);  result.Error != nil {
+		return units, result.Error
 	}
+	
 	return units, nil
 }
 

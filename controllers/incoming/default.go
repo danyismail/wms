@@ -2,8 +2,8 @@ package api
 
 import (
 	"github.com/astaxie/beego"
-	"webgudang/repo/goods"
-	"webgudang/models"
+	"wms/repo/goods"
+	"wms/models"
 	"fmt"
 	"strconv"
 	"math/rand"
@@ -22,7 +22,7 @@ func (c *MainController) All() {
 	result, err := goodsRepo.GetAll()
 
 	if err != nil {
-		c.Data["pesan"] = "Error"
+		c.Data["pesan"] = err
 		c.Layout = "template.html"
 		c.TplName = "incoming.html"
 	}
@@ -32,40 +32,37 @@ func (c *MainController) All() {
 	c.TplName = "incoming.html"
 }
 
-func (c *MainController) Add() {
-	goodsRepo := repo.GoodsRepo{}
 
-	goodsModel :=  models.Incoming{}
-	
-	newTrx := generateTrxID()
-	
+func (c *MainController) Add() {
 	t := time.Now()
-	
+	goodsRepo := repo.GoodsRepo{}
+	goodsModel :=  models.Incoming{}
+	newTrx := generateTrxID()
 	//mau nampung data dari form
-	goodsModel.TransaksiId = newTrx
-	goodsModel.Tanggal = t.Format("2006/01/02 15:04:05")
-	goodsModel.Lokasi = c.GetString("lokasi")
-	goodsModel.KodeBarang = c.GetString("kode")
-	goodsModel.NamaBarang = c.GetString("nama")
-	goodsModel.Satuan = c.GetString("satuan")
+	goodsModel.TransaksiId 	= newTrx
+	goodsModel.Tanggal 		= t.Format("2006/01/02 15:04:05")
+	goodsModel.Lokasi 		= c.GetString("lokasi")
+	goodsModel.KodeBarang 	= c.GetString("kode")
+	goodsModel.NamaBarang 	= c.GetString("nama")
+	goodsModel.Satuan 		= c.GetString("satuan")
 	
 	i, _ := strconv.Atoi(c.GetString("jumlah"))
 	goodsModel.Jumlah = i
-
 
 	result, err := goodsRepo.Add(goodsModel)
 
 	if err != nil {
 		fmt.Println(result)
-		c.Data["messageSuccess"] = "Gagal menambahkan barang"
-		c.Layout = "template.html"
-		c.TplName = "incoming.html"
+		c.Data["messageSuccess"]= "Gagal menambahkan barang"
+		c.Layout 				= "template.html"
+		c.TplName 				= "incoming.html"
 	}
 	
 	fmt.Println(result)
 	c.Data["messageSuccess"] = "Berhasil menambahkan barang"
 	c.Redirect("/incoming-goods",302)
 }
+
 
 //Incoming Detail
 func (c *MainController) Detail() {
@@ -76,14 +73,41 @@ func (c *MainController) Detail() {
 	result, err := goodsRepo.GetById(i)
 
 	if err != nil {
-		fmt.Println("Error repo",err)
+		fmt.Println("Error Repo => ",err)
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "detail.html"
 	}
 	
-	fmt.Println("error result",result)
 	c.Data["detail"] = result
 	c.Layout = "template.html"
 	c.TplName = "detail.html"
 }
+
+//Update Detail
+func (c *MainController) Update() {
+	goodsModel := models.Incoming{}
+	goodsRepo := repo.GoodsRepo{}
+
+	id := c.Ctx.Input.Param(":id")
+	i, _ := strconv.Atoi(id)
+	goodsModel.Id = i
+	goodsModel.Lokasi 		= c.GetString("lokasi")
+	goodsModel.KodeBarang 	= c.GetString("kode")
+	goodsModel.NamaBarang 	= c.GetString("nama")
+	goodsModel.Satuan 		= c.GetString("satuan")
+	
+	qty, _ := strconv.Atoi(c.GetString("jumlah"))
+	goodsModel.Jumlah = qty
+	result, err := goodsRepo.Update(goodsModel)
+	if err != nil {
+		c.Data["message"] = err
+		c.Redirect("/incoming-goods",302)
+	}
+	c.Data["message"] = result
+	c.Redirect("/incoming-goods",302)
+}
+
 
 func (c *MainController) Delete() {
 	goodsRepo := repo.GoodsRepo{}
@@ -94,11 +118,13 @@ func (c *MainController) Delete() {
 	num, err := goodsRepo.Delete(i)
 
 	if err != nil {
-		fmt.Println("Error repo",err)
+		c.Data["errormsg"] = err
+		c.Redirect("/incoming-goods",302)
 	}
 	c.Data["pesan"] = string(num)
 	c.Redirect("/incoming-goods",302)
 }
+
 
 //Helper Function
 func generateTrxID() string{
@@ -120,6 +146,7 @@ func randomWithRange(min, max int) int {
     var value = rand.Int() % (max - min + 1) + min
     return value
 }
+
 
 
 

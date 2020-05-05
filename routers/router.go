@@ -1,13 +1,13 @@
 package routers
 
 import (
-	Login 		"webgudang/controllers/login"
-	Api 		"webgudang/controllers/api"
-	Incoming 		"webgudang/controllers/incoming"
-	Outcoming 		"webgudang/controllers/outcoming"
-	Dashboard 	"webgudang/controllers/dashboard"
-	Users 		"webgudang/controllers/users"
-	Unit 		"webgudang/controllers/unit"
+	Login 		"wms/controllers/login"
+	Api 		"wms/controllers/api"
+	Incoming 		"wms/controllers/incoming"
+	Outcoming 		"wms/controllers/outcoming"
+	Dashboard 	"wms/controllers/dashboard"
+	Users 		"wms/controllers/users"
+	Unit 		"wms/controllers/unit"
 	"github.com/astaxie/beego"
 )
 
@@ -19,7 +19,8 @@ func init() {
 	beego.Router("/incoming-goods",&Incoming.MainController{}, "get:All")
 	beego.Router("/incoming-goods/add",&Incoming.MainController{}, "post:Add")
 	beego.Router("/incoming-goods/detail/:id([0-9]+)", &Incoming.MainController{}, "get:Detail")
-	beego.Router("/incoming-goods/delete/:id([0-9]+)", &Incoming.MainController{}, "get:Delete")
+	beego.Router("/incoming-goods/update/:id([0-9]+)", &Incoming.MainController{}, "post:Update")
+	beego.Router("/incoming-goods/delete/:id([0-9]+)", &Incoming.MainController{}, "*:Delete")
 	
 	beego.Router("/outcoming-goods", &Outcoming.MainController{})
 	beego.Router("/outcoming-goods/detail", &Outcoming.MainController{})

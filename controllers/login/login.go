@@ -1,7 +1,7 @@
 package controllers
 
 import (
-	_ "webgudang/models"
+	_ "wms/models"
 	"github.com/astaxie/beego"
 )
 

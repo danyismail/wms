@@ -1,34 +1,24 @@
 package repo
 
-import "webgudang/models"
+import "wms/database"
+import "wms/models"
 import "github.com/astaxie/beego"
-import "github.com/astaxie/beego/orm"
-import "fmt"
 
 type UsersRepo struct{
 	beego.Controller
 }
 
 func (repo *UsersRepo) GetAll() (result []models.Users ,err error){
-	o := orm.NewOrm()
-    o.Using("default")
 
     var users []models.Users
-    num, err := o.QueryTable("users").All(&users) //select * from incoming
+	if result := database.DB.Find(&users); result.Error != nil {
+		return users, result.Error
+	}
 
-    if err != orm.ErrNoRows && num > 0 {
-		fmt.Println("ada error", err)
-	}
-		
-		//Handle error
-	if err != nil {
-		panic (err)
-	}
-	
 	return users, nil
 }	
 
-
+/*
 func (repo *UsersRepo) GetById(id int) (result models.Incoming ,err error){
 	o := orm.NewOrm()
 	o.Using("default")
@@ -45,6 +35,7 @@ func (repo *UsersRepo) GetById(id int) (result models.Incoming ,err error){
 		}
 	return DetailBarang, nil
 }	
+*/
 
 
 

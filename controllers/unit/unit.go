@@ -2,8 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	Units "webgudang/repo/units"
-	"github.com/astaxie/beego/orm"
+	Units "wms/repo/units"
 )
 
 type UnitController struct {
@@ -11,14 +10,13 @@ type UnitController struct {
 }
 
 func (c *UnitController) All() {	
-	o := orm.NewOrm()
-	o.Using("default")
-	
 	repo := Units.UnitRepo{}
 	result, err := repo.GetAll()
 
 	if err != nil {
-
+		c.Data["units"] = err
+		c.Layout = "template.html"
+		c.TplName = "unit.html"
 	}
 
 	c.Data["units"] = result

@@ -2,7 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
-	"webgudang/models"
+	"wms/models"
 	"github.com/astaxie/beego/orm"
 	"encoding/json"
 	"strconv"

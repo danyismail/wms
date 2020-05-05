@@ -1,71 +1,68 @@
 package repo
 
-import "webgudang/models"
+import "wms/models"
+import "wms/database"
 import "github.com/astaxie/beego"
-import "github.com/astaxie/beego/orm"
-import "fmt"
+// import "github.com/astaxie/beego/orm"
+// import "fmt"
 
 type GoodsRepo struct{
 	beego.Controller
 }
 
 func (repo *GoodsRepo) GetAll() (result []models.Incoming ,err error){
-	o := orm.NewOrm()
-    o.Using("default")
+	// o := orm.NewOrm()
+    // o.Using("default")
 
     var barangMasuk []models.Incoming
-    num, err := o.QueryTable("incoming").All(&barangMasuk) //select * from incoming
-
-    if err != orm.ErrNoRows && num > 0 {
-		return barangMasuk, nil
+	// num, err := o.QueryTable("incoming").All(&barangMasuk) //select * from incoming
+	if result := database.DB.Find(&barangMasuk); result.Error != nil {
+		return barangMasuk, result.Error
 	}
-	
+
 	return barangMasuk, err
 }	
 
 
 func (repo *GoodsRepo) GetById(id int) (result models.Incoming ,err error){
-	o := orm.NewOrm()
-	o.Using("default")
 	
 	DetailBarang := models.Incoming{}
 
-	err = o.QueryTable("incoming").Filter("id", id).One(&DetailBarang)
-	if err == orm.ErrMultiRows {
-		// Have multiple records
-		fmt.Println("Returned Multi Rows Not One")
-		}
-		if err == orm.ErrNoRows {
-		fmt.Println("Not row found")
-		}
-	return DetailBarang, nil
+	if result := database.DB.Where("id = ?", id).Find(&DetailBarang); result.Error != nil {
+		return DetailBarang , result.Error
+	}
+
+	return DetailBarang , nil
 }	
 
-func (repo *GoodsRepo) Delete(id int) (num int64 ,err error){
-	o := orm.NewOrm()
-	o.Using("default")
+
+
+func (repo *GoodsRepo) Delete(id int) (string ,error){
+	DeleteBarang := models.Incoming{}
+	DeleteBarang.Id = id
+	if result := database.DB.Delete(&DeleteBarang); result.Error != nil {
+		return "Hapus barang gagal", result.Error
+	}
 	
-	num, err = o.QueryTable("incoming").Filter("id", id).Delete()
-	if err != nil {
-		fmt.Println(num)
-			return num, nil
-		}
-		
-	return num, nil
+	return "Delete barang berhasil", nil
 }	
+
 
 
 func (repo *GoodsRepo) Add(form models.Incoming) ( bool, error){
-	o := orm.NewOrm()
-	o.Using("default")
-	id, err := o.Insert(&form)
-	if err != nil {
-		fmt.Println("ada error di repo", err)
-		return false, err
-	}
-	fmt.Println(id)
+	
+	database.DB.Create(&form)
 	return true, nil
 }	
+
+func (repo *GoodsRepo) Update(form models.Incoming) (string, error){
+	UpdateBarang := models.Incoming{}
+	if result := database.DB.Model(&UpdateBarang).Updates(form); result.Error != nil {
+		return "Update gagal", result.Error
+	}
+	return "Update data berhasil", nil
+}
+
 
 
 

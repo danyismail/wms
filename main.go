@@ -1,24 +1,19 @@
 package main
 
 import (
-	_ "webgudang/routers"
+	_ "wms/routers"
 	"github.com/astaxie/beego" 
-	"github.com/astaxie/beego/orm"
-	"webgudang/database"
+	// "github.com/astaxie/beego/orm"
 )
 
 
 
 func main() {
-
-	database.Conn()
-
 	if beego.BConfig.RunMode == "dev" {
         beego.BConfig.WebConfig.DirectoryIndex = true
         // beego.BConfig.WebConfig.StaticDir["/static"] = "static"
 	}
 
-	orm.Debug = false
 	beego.Run()
 }
 

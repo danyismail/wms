@@ -1,12 +1,22 @@
 <div class="col-md-6">
   <!-- general form elements -->
+
+  {{if .errormsg}}
+      <div class="alert alert-danger alert-dismissible">
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                  <h5><i class="icon fas fa-ban"></i> Alert!</h5>
+                  {{ .errormsg}}
+                </div>
+  {{end}}
+
+  
   <div class="card card-primary">
     <div class="card-header">
       <h3 class="card-title">Ubah Data Barang Masuk</h3>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form role="form" method="POST">
+    <form role="form" method="POST" action="/incoming-goods/update/{{ .detail.Id}}">
       <div class="card-body">
         <div class="form-group">
           <input type="hidden" class="form-control" id="" value='{{ .detail.Id}}'>
@@ -14,12 +24,12 @@
 
         <div class="form-group">
           <label for="">TRX-ID</label>
-          <input type="disabled" name="" class="form-control" id="" value='{{ .detail.TransaksiId}}'>
+          <input type="disabled" name="" class="form-control" id="" value='{{ .detail.TransaksiId}}' disabled>
         </div>
 
         <div class="form-group">
           <label for="">Tanggal</label>
-          <input type="text" name="" class="form-control" id="" value='{{ .detail.Tanggal}}'>
+          <input type="text" name="" class="form-control" id="" value='{{ .detail.Tanggal}}' disabled>
         </div>
 
         <div class="form-group">
@@ -51,7 +61,7 @@
 
       <div class="card-footer">
         <a href="/dashboard" class="btn btn-primmary">Kembali</a>
-        <a href="/" class="btn btn-primmary"><button class="btn btn-primary">Ubah </button></a>
+        <button type="submit" class="btn btn-primary">Update</button>
         <a href="/" class="btn btn-primmary"><button class="btn btn-primary">Kirim </button></a>
       </div>
     </form>
