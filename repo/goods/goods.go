@@ -14,7 +14,7 @@ func (repo *GoodsRepo) GetAll() (result []models.Incoming ,err error){
 
 
     var barangMasuk []models.Incoming
-	database.DB.Raw("select * from incoming where jumlah > 0").Scan(&barangMasuk)
+	database.DB.Raw("select * from incoming where jumlah > 0 order by id desc").Scan(&barangMasuk)
 	// if result := database.DB.Find(&barangMasuk); result.Error != nil {
 	// 	return barangMasuk, result.Error
 	// }
@@ -25,10 +25,11 @@ func (repo *GoodsRepo) GetAll() (result []models.Incoming ,err error){
 
 func (repo *GoodsRepo) AllOut() ([]models.Outcoming , error){
 
-    var barangKeluar []models.Outcoming
-	if result := database.DB.Find(&barangKeluar); result.Error != nil {
-		return barangKeluar, result.Error
-	}
+	var barangKeluar []models.Outcoming
+	database.DB.Raw("select * from outcoming order by id desc").Scan(&barangKeluar)
+	// if result := database.DB.Find(&barangKeluar); result.Error != nil {
+	// 	return barangKeluar, result.Error
+	// }
 	return barangKeluar, nil
 }	
 
