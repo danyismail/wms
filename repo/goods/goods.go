@@ -10,6 +10,7 @@ type GoodsRepo struct{
 	beego.Controller
 }
 
+//Buat kondisi where jumlah tidak != 0
 func (repo *GoodsRepo) GetAll() (result []models.Incoming ,err error){
 	// o := orm.NewOrm()
     // o.Using("default")
@@ -53,6 +54,13 @@ func (repo *GoodsRepo) Add(form models.Incoming) ( bool, error){
 	
 	database.DB.Create(&form)
 	return true, nil
+}	
+
+func (repo *GoodsRepo) OutProccess(form models.Outcoming) ( string, error){
+	if result := database.DB.Create(&form); result.Error != nil {
+		return "proses barang gagal", result.Error
+	}
+	return "proses barang berhasil", nil
 }	
 
 func (repo *GoodsRepo) Update(form models.Incoming) (string, error){

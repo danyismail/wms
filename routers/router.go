@@ -2,7 +2,6 @@ package routers
 
 import (
 	Login 		"wms/controllers/login"
-	Api 		"wms/controllers/api"
 	Incoming 		"wms/controllers/incoming"
 	Outcoming 		"wms/controllers/outcoming"
 	Dashboard 	"wms/controllers/dashboard"
@@ -19,7 +18,9 @@ func init() {
 	beego.Router("/incoming-goods",&Incoming.MainController{}, "get:All")
 	beego.Router("/incoming-goods/add",&Incoming.MainController{}, "post:Add")
 	beego.Router("/incoming-goods/detail/:id([0-9]+)", &Incoming.MainController{}, "get:Detail")
+	beego.Router("/incoming-goods/detail-proccess/:id([0-9]+)", &Incoming.MainController{}, "get:DetailProccess")
 	beego.Router("/incoming-goods/update/:id([0-9]+)", &Incoming.MainController{}, "post:Update")
+	beego.Router("/incoming-goods/proccess/:id([0-9]+)", &Outcoming.MainController{}, "post:OutProccess")
 	beego.Router("/incoming-goods/delete/:id([0-9]+)", &Incoming.MainController{}, "*:Delete")
 	
 	beego.Router("/outcoming-goods", &Outcoming.MainController{})
@@ -27,21 +28,13 @@ func init() {
 
 	//UNITS ROUTER
 	beego.Router("/units", &Unit.UnitController{}, "get:All")
+	beego.Router("/units/add", &Unit.UnitController{}, "post:Add")
+	beego.Router("/units/detail/:id([0-9]+)", &Unit.UnitController{}, "get:Detail")
+	beego.Router("/units/update/:id([0-9]+)", &Unit.UnitController{}, "post:Update")
+	beego.Router("/units/delete/:id([0-9]+)", &Unit.UnitController{}, "*:Delete")
 
 	//USERS ROUTER
 	beego.Router("/users", &Users.UserController{}, "get:All")
-
-	//API Controllers
-	beego.Router("/api", &Dashboard.MainController{})
-	beego.Router("/api/incoming", &Api.MainController{}, "*:GetIncomingGoods")
-	beego.Router("/api/incoming", &Api.MainController{}, "*:GetIncomingGoods")
-	
-	// beego.Router("/backend/incoming/detail/:id([0-9]+)", &Api.MainController{}, "get:InDetail")
-	
-	beego.Router("/api/outcoming", &Api.MainController{}, "*:GetOutcomingGoods")
-	beego.Router("/api/outcoming/detail/:id([0-9]+)", &Api.MainController{}, "*:OutDetail")
-	beego.Router("/api/outcoming/update/:id([0-9]+)", &Api.MainController{}, "*:OutDetail")
-	
 	beego.Router("/users/delete/:id([0-9]+)", &Users.UserController{}, "*:Delete")
 	beego.Router("/users", &Users.UserController{}, "get:All")
 	

@@ -39,9 +39,9 @@
             <td>{{$elem.NamaBarang}}</td>
             <td>{{$elem.Satuan}}</td>
             <td>{{$elem.Jumlah}}</td>
-            <td><a href="/incoming-goods/detail/{{$elem.Id}}">Ubah</a></td>
-            <td><a href="/incoming-goods/detail/{{$elem.Id}}">Kirim</a></td>
-            <td><a href="/incoming-goods/delete/{{$elem.Id}}">Hapus</a></td>
+            <td><a href="/incoming-goods/detail/{{$elem.Id}}">Update </a></td>
+            <td><a href="/incoming-goods/detail-proccess/{{$elem.Id}}">Proses </a></td>
+            <td><a href="/incoming-goods/delete/{{$elem.Id}}">Hapus </a></td>
         </tr>
         {{end}}
         </tbody>
@@ -75,10 +75,11 @@
                         <input type="text" class="form-control" name="nama">
                       </div>
 
-                      <div class="form-group">
-                        <label for="exampleInputPassword1">Satuan </label>
-                        <input type="text" class="form-control" name="satuan">
-                      </div>
+                      <select name="satuan" id="">
+                        {{range $index, $elem := .list}}
+                            <option name="" value='{{ $elem.Name}}'>{{ $elem.Name}}</option>
+                        {{end}}
+                      </select>
 
                       <div class="form-group">
                         <label for="exampleInputPassword1">Jumlah </label>

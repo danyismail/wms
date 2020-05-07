@@ -35,7 +35,7 @@ type Outcoming struct {
   KodeBarang    string  `json:"kodebarang"`
   NamaBarang    string  `json:"namabarang"`
   Satuan        string  `json:"satuan"`
-  Jumlah        string  `json:"jumlah"`
+  Jumlah        int     `json:"jumlah"`
 }
 
 type Users struct {

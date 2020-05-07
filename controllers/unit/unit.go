@@ -3,6 +3,9 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	Units "wms/repo/units"
+	"wms/models"
+	"strconv"
+	"fmt"
 )
 
 type UnitController struct {
@@ -25,22 +28,73 @@ func (c *UnitController) All() {
 	
 }
 
+func (c *UnitController) Add() {	
+	repo := Units.UnitRepo{}
+	unitModel := models.Units{}
 
-// func (c *MainController) Delete(){
+	unitModel.Code = c.GetString("kode")
+	unitModel.Name = c.GetString("nama")
+
+	result, err := repo.Add(unitModel)
+
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "form-unit.html"
+	}
+	c.Data["errormsg"] = result
+	c.Redirect("/units", 302)
+}
+
+func (c *UnitController) Detail() {	
+	repo := Units.UnitRepo{}
+	id := c.Ctx.Input.Param(":id")
+	i, _ := strconv.Atoi(id)
+	result, err := repo.GetById(i)
+
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "form-unit.html"
+	}
+	c.Data["units"] = result
+	c.Layout = "template.html"
+	c.TplName = "form-unit.html"
+}
+
+func (c *UnitController) Update() {
+	unitModel := models.Units{}
+	unitRepo := Units.UnitRepo{}
+
+	id := c.Ctx.Input.Param(":id")
+	i, _ := strconv.Atoi(id)
+	unitModel.Id = i
+
+	unitModel.Code 	= c.GetString("kode")
+	unitModel.Name 	= c.GetString("nama")
 	
-// 	userId, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
-// 	o := orm.NewOrm()
-// 	o.Using("default")
+	fmt.Println(unitModel)
+	result, err := unitRepo.Update(unitModel)
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Redirect("/units",302)
+	}
+	c.Data["errormsg"] = result
+	c.Redirect("/units",302)
+}
 
-// 	if num, err := o.Delete(&models.User{Id:userId}); err == nil {
-// 		beego.Info("Record Deleted. ", num)
-// 		c.Data["num"] = num
-// 		c.Layout = "template.html"
-// 		c.TplName = "dashboard.html"
-// 	} else {
-// 		beego.Error("Record couldn't be deleted. Reason: ", err)
-// 		c.Data["err"] = err
-// 		c.Layout = "template.html"
-// 		c.TplName = "users.html"
-// 	}
-// }
+func (c *UnitController) Delete() {
+	unitRepo := Units.UnitRepo{}
+
+	id := c.Ctx.Input.Param(":id")
+	i, _ := strconv.Atoi(id)
+
+	result, err := unitRepo.Delete(i)
+
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Redirect("/units",302)
+	}
+	c.Data["pesan"] = result
+	c.Redirect("/units",302)
+}
