@@ -7,6 +7,7 @@ import (
 	Dashboard 	"wms/controllers/dashboard"
 	Users 		"wms/controllers/users"
 	Unit 		"wms/controllers/unit"
+	Report 		"wms/controllers/reporting"
 	"github.com/astaxie/beego"
 )
 
@@ -40,6 +41,8 @@ func init() {
 	beego.Router("/users", &Users.UserController{}, "get:All")
 	beego.Router("/users/delete/:id([0-9]+)", &Users.UserController{}, "*:Delete")
 	beego.Router("/users", &Users.UserController{}, "get:All")
+	
+	beego.Router("/reporting", &Report.ReportingController{}, "get:All")
 	
 
 }

@@ -55,5 +55,12 @@ type Units struct {
 
 type MaxIncomingGoods struct{
 		Max int
-	}
+}
+
+type Reporting struct{
+  NamaBarang    string  `json:"namabarang"`
+  StockGudang   int     `json:"stockgudang"`
+  StockTerkirim int     `json:"stockterkirim"`
+  TotalAll      int     `json:"total"`
+}
 

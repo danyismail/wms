@@ -1,0 +1,23 @@
+<div class="col-6">
+                  <p class="lead">Laporan Keluar - Masuk Barang Gudang</p>
+
+                  <div class="table-responsive">
+                    <table class="table">
+                      <tr>
+                        <th style="width:50%">Nama Barang</th>
+                        <th style="width:50%">Jumlah Barang di Gudang</th>
+                        <th style="width:50%">Jumlah Barang Dikirim</th>
+                        <th style="width:50%">Total Barang</th>
+                      </tr>
+
+                      {{range $index,$elem := .list}}
+                      <tr>
+                        <td>{{$elem.NamaBarang}}</td>
+                        <td>{{$elem.StockGudang}}</td>
+                        <td>{{$elem.StockTerkirim}}</td>
+                        <td>{{$elem.TotalAll}}</td>
+                      </tr>
+                      {{end}}
+                    </table>
+                  </div>
+                </div>
