@@ -53,3 +53,7 @@ type Units struct {
   Name   string    `json:"nama"`
 }
 
+type MaxIncomingGoods struct{
+		Max int
+	}
+

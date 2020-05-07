@@ -20,11 +20,14 @@ func init() {
 	beego.Router("/incoming-goods/detail/:id([0-9]+)", &Incoming.MainController{}, "get:Detail")
 	beego.Router("/incoming-goods/detail-proccess/:id([0-9]+)", &Incoming.MainController{}, "get:DetailProccess")
 	beego.Router("/incoming-goods/update/:id([0-9]+)", &Incoming.MainController{}, "post:Update")
-	beego.Router("/incoming-goods/proccess/:id([0-9]+)", &Outcoming.MainController{}, "post:OutProccess")
+	beego.Router("/incoming-goods/proccess/:id([0-9]+)", &Outcoming.OutController{}, "post:OutProccess")
 	beego.Router("/incoming-goods/delete/:id([0-9]+)", &Incoming.MainController{}, "*:Delete")
 	
-	beego.Router("/outcoming-goods", &Outcoming.MainController{})
-	beego.Router("/outcoming-goods/detail", &Outcoming.MainController{})
+	beego.Router("/outcoming-goods", &Outcoming.OutController{}, "get:All")
+	beego.Router("/outcoming-goods/detail/:id([0-9]+)", &Outcoming.OutController{},"get:Detail")
+	beego.Router("/outcoming-goods/update/:id([0-9]+)", &Outcoming.OutController{},"post:Update")
+	// beego.Router("/outcoming-goods/reflect", &Outcoming.OutController{},"get:Reflect")
+	// beego.Router("/outcoming-goods/print", &Outcoming.OutController{},"get:Print")
 
 	//UNITS ROUTER
 	beego.Router("/units", &Unit.UnitController{}, "get:All")

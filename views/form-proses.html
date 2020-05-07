@@ -30,7 +30,7 @@
                   <dt>Nama Barang</dt>
                   <dd>{{ .detail.NamaBarang}}</dd>
                   <dt>Jumlah Barang</dt>
-                  <dd>{{ .detail.Jumlah}}</dd>
+                  <dd id="max">{{ .detail.Jumlah}}</dd>
                 </dl>
               </div>
               <!-- /.card-body -->
@@ -68,17 +68,26 @@
 
         <div class="form-group">
           <label for="exampleInputEmail1">Akan dikeluarkan sejumlah </label>
-          <input type="text" name="jumlah" class="form-control" id="exampleInputEmail1" autofocus>
+          <input type="text" name="jumlah" class="form-control" id="jumlah" autofocus>
         </div>
       </div>
       <!-- /.card-body -->
 
       <div class="card-footer">
         <a href="/dashboard" class="btn btn-primmary">Kembali</a>
-        <button type="submit" class="btn btn-primary">Proses</button>
+        <button type="submit" onsubmit="cekMax()" class="btn btn-primary">Proses</button>
       </div>
     </form>
   </div>
   <!-- /.card -->
 
 </div>
+<script>
+  function cekMax(){
+    let max = document.getElementById("max")
+    let jumlah = document.getElementById("jumlah").val()
+    if(jumlah > max){
+      alert("Barang yang akan dikeluarkan lebih dari stock barang")
+    }
+  }
+</script>

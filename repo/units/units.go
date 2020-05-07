@@ -1,10 +1,10 @@
 package repo
 
-import "wms/database"
-import "wms/models"
-import "github.com/astaxie/beego"
-// import "github.com/astaxie/beego/orm"
-// import "fmt"
+import(
+	"wms/database"
+	"wms/models"
+	"github.com/astaxie/beego"
+)
 
 type UnitRepo struct{
 	beego.Controller

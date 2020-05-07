@@ -29,7 +29,7 @@ func (c *MainController) Get(){
 		c.TplName = "dashboard.html" //buat load halaman
 	}
 
-	totalUser, errTotalUser := repo.GetTotalOutcomingGoods()
+	totalUser, errTotalUser := repo.GetTotalUser()
 
 	if errTotalUser != nil {
 		c.Data["errormsg"] = errTotalUser
@@ -37,6 +37,15 @@ func (c *MainController) Get(){
 		c.TplName = "dashboard.html" //buat load halaman
 	}
 
+	result, errMax := repo.Max()
+
+	if errMax != "	" {
+		c.Data["errormsg"] = errMax
+		c.Layout = "template.html"
+		c.TplName = "dashboard.html" //buat load halaman
+	}
+
+	c.Data["jumlahMax"] = result
 	c.Data["jumlahMasuk"] = totalIn
 	c.Data["jumlahKeluar"] = totalOut
 	c.Data["jumlahUser"] = totalUser

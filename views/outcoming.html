@@ -11,7 +11,7 @@
     <table class="table table-bordered">
         <thead>
             <tr>
-                <td>Transaction ID</td>
+                <td>Transaksi ID</td>
                 <td>Tanggal Masuk</td>
                 <td>Tanggal Keluar</td>
                 <td>Lokasi</td>
@@ -23,39 +23,21 @@
             </tr>
         </thead>
         <tbody>
-            
+                {{range $index, $elem := .list}}
+                <tr>
+                    <td>{{$elem.TransaksiId}}</td>
+                    <td>{{$elem.TanggalMasuk}}</td>
+                    <td>{{$elem.TanggalKeluar}}</td>
+                    <td>{{$elem.Lokasi}}</td>
+                    <td>{{$elem.KodeBarang}}</td>
+                    <td>{{$elem.NamaBarang}}</td>
+                    <td>{{$elem.Satuan}}</td>
+                    <td>{{$elem.Jumlah}}</td>
+                    <td><a href="outcoming-goods/detail/{{$elem.Id}}">Edit </a></td>
+                    <td><a href="outcoming-goods/delete/{{$elem.Id}}">Delete </a></td>
+                </tr>
+                {{end}}
         </tbody>
     </table>
-
-    
-    <script>
-        $.ajax({
-            url: "http://localhost:8080/api/outcoming",
-            method : "GET",
-            contentType: 'application/json',
-    }   )
-        .then(data =>{
-            data.forEach(element => {
-                console.log(element);
-                $("tbody").append(
-                        "<tr>"+
-                        "<td>"+ element.transaksi_id +"</td>" +
-                        "<td>"+ element.tanggalmasuk +"</td>" +
-                        "<td>"+ element.tanggalkeluar +"</td>" +
-                        "<td>"+ element.lokasi +"</td>" +
-                        "<td>"+ element.kodebarang +"</td>" +
-                        "<td>"+ element.namabarang +"</td>" +
-                        "<td>"+ element.satuan +"</td>" +
-                        "<td>"+ element.jumlah +"</td>" +
-                        "<td><a href='api/outcoming/detail/"+ element.id + "'> Ubah<a/></td>" +
-                        "<td><a href='api/outcoming/delete/"+ element.id + "'> Hapus<a/></td>" +
-                        "</tr>"
-                    )
-            });
-        })
-        .catch(e=>{
-            console.log(e)
-        })
-    </script>
 </body>
 </html>

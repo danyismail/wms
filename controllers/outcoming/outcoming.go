@@ -2,27 +2,81 @@ package api
 
 import (
 	"github.com/astaxie/beego"
-	"wms/repo/goods"
+	Goods "wms/repo/goods"
 	"wms/models"
 	"strconv"
 	"time"
 	"fmt"
+	// "github.com/SebastiaanKlippert/go-wkhtmltopdf"
+    // "log"
+    // "os"
 )
 
 
-type MainController struct {
+type OutController struct {
 	beego.Controller
 }
 
-func (c *MainController) Get() {
-	//Layout <- Template
-	c.Layout = "template.html"
-	c.TplName = "outcoming.html" //buat load halaman
+func (c *OutController) All() {
+	repoOutcoming := Goods.GoodsRepo{}
+	result, err := repoOutcoming.AllOut()
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "outcoming.html" //buat load halaman
+	}
+	fmt.Println(result)
+	c.Data["list"] = result
+		c.Layout = "template.html"
+		c.TplName = "outcoming.html" //buat load halaman
 }
 
-func (c *MainController) OutProccess() {
+func (c *OutController) Detail() {
+	repoOutcoming := Goods.GoodsRepo{}
+	i, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
+	
+	fmt.Println(i)
+	result, err := repoOutcoming.OutById(i)
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Layout = "template.html"
+		c.TplName = "form-out-detail.html"
+	}
+	fmt.Println(result,"masuk sini")
+	c.Data["detail"] = result
+	c.Layout = "template.html"
+	c.TplName = "form-out-detail.html"
+}
+
+func (c *OutController) Update() {
+	repoOutcoming := Goods.GoodsRepo{}
+	outModel := models.Outcoming{}
+	i, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
+	outModel.Id = i
+	outModel.TransaksiId = c.GetString("trxId")
+	outModel.TanggalMasuk = c.GetString("tanggalmasuk")
+	outModel.TanggalKeluar = c.GetString("tanggalkeluar")
+	outModel.Lokasi = c.GetString("lokasi")
+	outModel.KodeBarang = c.GetString("kode")
+	outModel.NamaBarang = c.GetString("nama")
+	iJumlah, _ := strconv.Atoi(c.GetString("jumlah"))
+	outModel.Jumlah = iJumlah
+	
+	fmt.Println(i, "=> query param id")
+	result, err := repoOutcoming.OutUpdate(outModel)
+	if err != nil {
+		c.Data["errormsg"] = err
+		c.Redirect("/outcoming-goods", 302)
+	}
+	fmt.Println(result,"masuk sini")
+	c.Data["detail"] = result
+	c.Layout = "template.html"
+	c.Redirect("/outcoming-goods", 302)
+}
+
+func (c *OutController) OutProccess() {
 	t := time.Now()
-	goodsRepo := repo.GoodsRepo{}
+	goodsRepo := Goods.GoodsRepo{}
 	outModel :=  models.Outcoming{}
 	//mau nampung data dari form
 	getID, _ := strconv.Atoi(c.GetString("id"))
@@ -37,7 +91,7 @@ func (c *MainController) OutProccess() {
 	
 	i, _ := strconv.Atoi(c.GetString("jumlah"))
 	outModel.Jumlah = i
-	fmt.Println(outModel)
+	
 	result, err := goodsRepo.OutProccess(outModel)
 
 	if err != nil {
@@ -51,3 +105,5 @@ func (c *MainController) OutProccess() {
 	c.Data["messageSuccess"] = "Berhasil menambahkan barang"
 	c.Redirect("/incoming-goods",302)
 }
+
+

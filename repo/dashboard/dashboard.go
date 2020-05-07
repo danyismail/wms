@@ -8,7 +8,6 @@ type RepoDashboard struct{
 }
 
 
-
 func (repo *RepoDashboard) GetTotalIncomingGoods() (int, error){
 
     var totalBarangMasuk int
@@ -33,6 +32,13 @@ func (repo *RepoDashboard) GetTotalUser() (result int, err error){
 	}
 	return totalUser, nil
 }	
+
+func (repo *RepoDashboard) Max() (float64, string){
+	var result float64
+		row := database.DB.Table("incoming").Select("max(jumlah)").Row()
+		row.Scan(&result)
+		return result, "Data max jumlah barang berhasil ditampikan"
+}
 
 
 
