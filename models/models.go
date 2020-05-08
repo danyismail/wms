@@ -64,3 +64,15 @@ type Reporting struct{
   TotalAll      int     `json:"total"`
 }
 
+type LoginForm struct{
+	Email string
+  Password string
+}
+
+type LoginResponse struct{
+  Username string
+	Email string
+  Password string
+  Role string
+}
+

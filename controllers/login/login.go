@@ -11,7 +11,5 @@ type MainController struct {
 }
 
 func (c *MainController) Get() {
-	//Layout <- Template
-	// c.Layout = "template.html"
 	c.TplName = "login.html" //buat load halaman
 }

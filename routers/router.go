@@ -6,6 +6,7 @@ import (
 	Outcoming 		"wms/controllers/outcoming"
 	Dashboard 	"wms/controllers/dashboard"
 	Users 		"wms/controllers/users"
+	Auth 		"wms/controllers/auth"
 	Unit 		"wms/controllers/unit"
 	Report 		"wms/controllers/reporting"
 	"github.com/astaxie/beego"
@@ -40,10 +41,12 @@ func init() {
 	//USERS ROUTER
 	beego.Router("/users", &Users.UserController{}, "get:All")
 	beego.Router("/users/delete/:id([0-9]+)", &Users.UserController{}, "*:Delete")
-	beego.Router("/users", &Users.UserController{}, "get:All")
+	beego.Router("/users/add", &Users.UserController{}, "post:Add")
+	
+	//AUTH ROUTER
+	beego.Router("/auth", &Auth.AuthController{}, "post:Login")
 	
 	beego.Router("/reporting", &Report.ReportingController{}, "get:All")
-	
 
 }
 
