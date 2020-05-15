@@ -1,21 +1,59 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:8889
--- Generation Time: May 07, 2020 at 04:15 AM
--- Server version: 5.7.23
--- PHP Version: 7.2.10
+-- Host: 127.0.0.1
+-- Generation Time: May 15, 2020 at 03:32 AM
+-- Server version: 8.0.18
+-- PHP Version: 7.3.11
 SET
   SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 
 SET
+  AUTOCOMMIT = 0;
+
+START TRANSACTION;
+
+SET
   time_zone = "+00:00";
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+;
+
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+;
+
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+;
+
+/*!40101 SET NAMES utf8mb4 */
+;
 
 --
 -- Database: `web_gudang`
 --
+DELIMITER $ $ --
+-- Procedures
+--
+CREATE DEFINER = `root` @`localhost` PROCEDURE `ambil` () BEGIN
+SELECT
+  nama_barang
+FROM
+  outcoming;
 
+END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `ambilNama` () BEGIN
+SELECT
+  namabarang
+FROM
+  outcoming;
+
+END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `selectNamaBarang` () BEGIN
+SELECT
+  nama_barang
+FROM
+  outcoming;
+
+END $ $ DELIMITER;
 
 -- --------------------------------------------------------
 --
@@ -136,6 +174,26 @@ VALUES
     'Beras Cianjur',
     'Dus',
     3400
+  ),
+  (
+    10,
+    'TRX-395-720',
+    '2020/05/15 07:31:56',
+    'Jambi',
+    'JMB',
+    'Kabel',
+    'Kilogram',
+    99
+  ),
+  (
+    11,
+    'TRX-243-579',
+    '2020/05/15 09:42:36',
+    'Tangerang',
+    'TGR',
+    'HARNESS BODY',
+    'Kilogram',
+    40
   );
 
 -- --------------------------------------------------------
@@ -334,6 +392,17 @@ VALUES
     'Semen',
     'Sak',
     '234'
+  ),
+  (
+    15,
+    'TRX-243-579',
+    '2020/05/15 09:42:36',
+    '2020/05/15 09:57:09',
+    'Tangerang',
+    'TGR',
+    'HARNESS BODY',
+    'Kilogram',
+    '10'
   );
 
 --
@@ -352,38 +421,12 @@ WHERE
 
 -- --------------------------------------------------------
 --
--- Table structure for table `tb_upload_gambar_user`
+-- Table structure for table `test`
 --
-CREATE TABLE `tb_upload_gambar_user` (
+CREATE TABLE `test` (
   `id` int(11) NOT NULL,
-  `username_user` varchar(100) NOT NULL,
-  `nama_file` varchar(220) NOT NULL,
-  `ukuran_file` varchar(8) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
-
---
--- Dumping data for table `tb_upload_gambar_user`
---
-INSERT INTO
-  `tb_upload_gambar_user` (
-    `id`,
-    `username_user`,
-    `nama_file`,
-    `ukuran_file`
-  )
-VALUES
-  (1, 'test', 'nopic5.png', '6.33'),
-  (2, 'test', 'nopic4.png', '6.33'),
-  (3, 'coba', 'ptro.jpg', '16.69'),
-  (4, 'admin', 'Untitled4.png', '232.91'),
-  (5, 'danyismail', 'nopic2.png', '6.33');
-
--- --------------------------------------------------------
---
--- Stand-in structure for view `total_barang_masuk`
--- (See below for the actual view)
---
-CREATE TABLE `total_barang_masuk` (`count(1)` bigint(21));
+  `name` int(11) NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 -- --------------------------------------------------------
 --
@@ -391,9 +434,9 @@ CREATE TABLE `total_barang_masuk` (`count(1)` bigint(21));
 --
 CREATE TABLE `units` (
   `id` int(11) NOT NULL,
-  `code` varchar(100) NOT NULL,
-  `name` varchar(100) NOT NULL
-) ENGINE = InnoDB DEFAULT CHARSET = latin1;
+  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 --
 -- Dumping data for table `units`
@@ -401,13 +444,8 @@ CREATE TABLE `units` (
 INSERT INTO
   `units` (`id`, `code`, `name`)
 VALUES
-  (1, 'PCS', 'Piece'),
-  (2, 'UNIT', 'Unit'),
-  (4, 'DUS', 'Dus'),
-  (6, 'KL', 'Koli'),
-  (7, 'KD', 'Kodi'),
-  (8, 'SAK', 'Sak'),
-  (9, 'KRG', 'Karung');
+  (1, 'KG', 'Kilogram'),
+  (3, 'U', 'Unit');
 
 -- --------------------------------------------------------
 --
@@ -436,49 +474,67 @@ INSERT INTO
   )
 VALUES
   (
-    20,
+    1,
     'admin',
-    'admin@gmail.com',
-    '$2y$10$3HNkMOtwX8X88Xb3DIveYuhXScTnJ9m16/rPDF1/VTa/VTisxVZ4i',
-    1,
-    '27-04-2020 19:05'
-  ),
-  (
-    21,
-    'haris',
-    'harisds94@gmail.com',
-    '$2y$10$wj7T1eyikr9NTFrGVrRPQ./mt9UZgOoUshlbxOKEBKOg91j4X9D4W',
-    1,
-    '31-12-2019 15:50'
-  ),
-  (
-    22,
-    'arman',
-    'armanbudimahendra@gmail.com',
-    '$2y$10$ZW.aM8FUZjCQXJWZJV5hhuUdm6/wmzqDeygOb1kBKu8NaO5zWRWru',
+    'admin@wms.com',
+    '$2a$04$XzZVjxw99O9rNC1TnJ8s2.LILQA11n2Np8reVPIXV/KSRCVED3WLK',
     1,
     ''
   ),
   (
-    23,
-    'user',
-    'user@gmail.com',
-    '$2y$10$Cpab9tJemKXPTfwZBTgkFeRo8DmnV26NyXs5fiz25.Je2Aj8Kmgmq',
+    2,
+    'dany_arie',
+    'dany_arie@yahoo.com',
+    '$2a$04$TiV.22MinQqCegME2t5LU./GZf6VZkzlqBMRh.LZGCIyHigJn/LRq',
     0,
+    ''
+  ),
+  (
+    3,
+    'rizal',
+    'rizal@mail.com',
+    '$2a$04$Z9yHSKxdU7qyr.xnW6CCqeV0GxQyFxse9vcLzWizkXIxKKabHReSa',
+    1,
     ''
   );
 
 -- --------------------------------------------------------
 --
--- Structure for view `total_barang_masuk`
+-- Stand-in structure for view `v_in_out_reporting`
+-- (See below for the actual view)
 --
-DROP TABLE IF EXISTS `total_barang_masuk`;
+CREATE TABLE `v_in_out_reporting` (
+  `jumlah_keluar` varchar(10),
+  `jumlah_masuk` double,
+  `kode` varchar(100),
+  `lokasi` varchar(100),
+  `nama_barang` varchar(100),
+  `satuan` varchar(50),
+  `sisa` int(255)
+);
 
-CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`localhost` SQL SECURITY DEFINER VIEW `total_barang_masuk` AS
+-- --------------------------------------------------------
+--
+-- Structure for view `v_in_out_reporting`
+--
+DROP TABLE IF EXISTS `v_in_out_reporting`;
+
+CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`localhost` SQL SECURITY DEFINER VIEW `v_in_out_reporting` AS
 select
-  count(1) AS `count(1)`
+  `a`.`nama_barang` AS `nama_barang`,
+  `a`.`lokasi` AS `lokasi`,
+  `a`.`kode_barang` AS `kode`,
+  `a`.`satuan` AS `satuan`,
+(`b`.`jumlah` + `a`.`jumlah`) AS `jumlah_masuk`,
+  `b`.`jumlah` AS `jumlah_keluar`,
+  `a`.`jumlah` AS `sisa`
 from
-  `incoming`;
+  (
+    `incoming` `a`
+    join `outcoming` `b` on((`a`.`nama_barang` = `b`.`nama_barang`))
+  )
+where
+  (`a`.`jumlah` >= 0);
 
 --
 -- Indexes for dumped tables
@@ -492,14 +548,6 @@ ADD
   PRIMARY KEY (`id`);
 
 --
--- Indexes for table `items`
---
-ALTER TABLE
-  `items`
-ADD
-  PRIMARY KEY (`id`);
-
---
 -- Indexes for table `outcoming`
 --
 ALTER TABLE
@@ -508,10 +556,10 @@ ADD
   PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tb_upload_gambar_user`
+-- Indexes for table `test`
 --
 ALTER TABLE
-  `tb_upload_gambar_user`
+  `test`
 ADD
   PRIMARY KEY (`id`);
 
@@ -541,15 +589,7 @@ ALTER TABLE
   `incoming`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 10;
-
---
--- AUTO_INCREMENT for table `items`
---
-ALTER TABLE
-  `items`
-MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT;
+  AUTO_INCREMENT = 12;
 
 --
 -- AUTO_INCREMENT for table `outcoming`
@@ -558,16 +598,15 @@ ALTER TABLE
   `outcoming`
 MODIFY
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 15;
+  AUTO_INCREMENT = 16;
 
 --
--- AUTO_INCREMENT for table `tb_upload_gambar_user`
+-- AUTO_INCREMENT for table `test`
 --
 ALTER TABLE
-  `tb_upload_gambar_user`
+  `test`
 MODIFY
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 6;
+  `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `units`
@@ -576,7 +615,7 @@ ALTER TABLE
   `units`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 10;
+  AUTO_INCREMENT = 4;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -585,4 +624,15 @@ ALTER TABLE
   `users`
 MODIFY
   `id` int(12) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 24;
+  AUTO_INCREMENT = 4;
+
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
+;
+
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
+;
+
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
+;
