@@ -59,12 +59,12 @@ type MaxIncomingGoods struct{
 
 type Reporting struct{
   NamaBarang    string  `json:"namabarang"`
-  Lokasi    string  `json:"namabarang"`
-  Kode    string  `json:"namabarang"`
-  Satuan    string  `json:"namabarang"`
+  Lokasi    string  `json:"lokasi"`
+  Kode    string  `json:"kode"`
+  Satuan    string  `json:"satuan"`
   JumlahMasuk   int     `json:"jumlahmasuk"`
   JumlahKeluar int     `json:"jumlahkeluar"`
-  Sisa      int     `json:"total"`
+  Sisa      int     `json:"sisa"`
 }
 
 type LoginForm struct{

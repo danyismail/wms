@@ -47,6 +47,7 @@ func init() {
 	beego.Router("/auth", &Auth.MainController{}, "post:Login")
 	
 	beego.Router("/reporting", &Report.ReportingController{}, "get:All")
+	beego.Router("/reporting/export", &Report.ReportingController{}, "get:Export")
 
 }
 

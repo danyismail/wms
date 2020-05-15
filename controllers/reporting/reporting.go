@@ -4,6 +4,7 @@ import (
 	"github.com/astaxie/beego"
 	Reporting "wms/repo/reporting"
 	"fmt"
+	WHelper"wms/helper"
 )
 
 
@@ -23,6 +24,14 @@ func (c *ReportingController) All() {
 	c.Data["list"] = result
 	c.Layout = "template.html"
 	c.TplName = "reporting/in-out.html" //buat load halaman
+}
+
+func (c *ReportingController) Export() {
+	exp := WHelper.HelperModule{}
+	result := exp.ExportToExcell()
+	c.Data["excellSuccess"] = result
+	c.Layout = "template.html"
+	c.TplName = "reporting/success-export.html" //buat load halaman
 }
 
 

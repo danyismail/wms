@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2020 at 03:32 AM
+-- Generation Time: May 15, 2020 at 06:05 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.3.11
 SET
@@ -32,29 +32,6 @@ SET
 --
 -- Database: `web_gudang`
 --
-DELIMITER $ $ --
--- Procedures
---
-CREATE DEFINER = `root` @`localhost` PROCEDURE `ambil` () BEGIN
-SELECT
-  nama_barang
-FROM
-  outcoming;
-
-END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `ambilNama` () BEGIN
-SELECT
-  namabarang
-FROM
-  outcoming;
-
-END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `selectNamaBarang` () BEGIN
-SELECT
-  nama_barang
-FROM
-  outcoming;
-
-END $ $ DELIMITER;
-
 -- --------------------------------------------------------
 --
 -- Table structure for table `incoming`
@@ -86,114 +63,24 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    'Batam',
-    'BTM',
-    'Kain Sutra',
-    'Kodi',
-    0
-  ),
-  (
-    2,
-    'TRX-423-677',
-    '2020/05/07 09:42:08',
-    'Bandung',
-    'BDG',
-    'Kain Garmen',
-    'Kodi',
-    0
-  ),
-  (
-    3,
-    'TRX-468-723',
-    '2020/05/07 09:42:30',
+    18,
+    'TRX-157-616',
+    '2020/05/16 01:00:57',
     'Jakarta Selatan',
     'JKS',
-    'Onderdil Motor',
+    'Genset',
     'Unit',
-    -1
+    124
   ),
   (
-    4,
-    'TRX-341-822',
-    '2020/05/07 09:44:32',
-    'Bogor',
-    'BGR',
-    'Plat Besi',
-    'Unit',
-    -1
-  ),
-  (
-    5,
-    'TRX-180-997',
-    '2020/05/07 09:53:58',
-    'Singapore',
-    'SG',
-    'xRAY',
-    'Piece',
-    -1
-  ),
-  (
-    6,
-    'TRX-211-650',
-    '2020/05/07 09:56:21',
+    19,
+    'TRX-133-636',
+    '2020/05/16 01:01:13',
     'Jakarta Selatan',
     'JKS',
-    'AQUA',
-    'Piece',
-    -100
-  ),
-  (
-    7,
-    'TRX-372-900',
-    '2020/05/07 10:13:55',
-    'Tegal',
-    'TGL',
-    'Semen',
-    'Sak',
-    246
-  ),
-  (
-    8,
-    'TRX-356-597',
-    '2020/05/07 11:02:57',
-    'Bandung',
-    'BDG',
-    'Besi',
-    'Piece',
-    120
-  ),
-  (
-    9,
-    'TRX-374-548',
-    '2020/05/07 11:03:33',
-    'Cianjur',
-    'CJR',
-    'Beras Cianjur',
-    'Dus',
-    3400
-  ),
-  (
-    10,
-    'TRX-395-720',
-    '2020/05/15 07:31:56',
-    'Jambi',
-    'JMB',
-    'Kabel',
-    'Kilogram',
-    99
-  ),
-  (
-    11,
-    'TRX-243-579',
-    '2020/05/15 09:42:36',
-    'Tangerang',
-    'TGR',
-    'HARNESS BODY',
-    'Kilogram',
-    40
+    'Genset',
+    'Unit',
+    16
   );
 
 -- --------------------------------------------------------
@@ -240,184 +127,16 @@ INSERT INTO
   )
 VALUES
   (
-    1,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    '2020/05/07 09:14:33',
-    'Batam',
-    'BTM',
-    'Kain Sutra Y',
-    'Kodi',
-    '80'
-  ),
-  (
-    2,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    '2020/05/07 09:14:39',
-    'Batam',
-    'BTM',
-    'Kain Sutra X',
-    'Kodi',
-    '70'
-  ),
-  (
-    3,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    '2020/05/07 09:14:50',
-    'Batam',
-    'BTM',
-    'Kain Sutra',
-    'Kodi',
-    '300'
-  ),
-  (
-    4,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    '2020/05/07 09:14:56',
-    'Batam',
-    'BTM',
-    'Kain Sutra',
-    'Kodi',
-    '49'
-  ),
-  (
-    5,
-    'TRX-424-849',
-    '2020/05/07 09:14:20',
-    '2020/05/07 09:41:43',
-    'Batam',
-    'BTM',
-    'Kain Sutra',
-    'Kodi',
-    '2'
-  ),
-  (
-    6,
-    'TRX-423-677',
-    '2020/05/07 09:42:08',
-    '2020/05/07 09:42:38',
-    'Bandung',
-    'BDG',
-    'Kain Garmen',
-    'Kodi',
-    '50'
-  ),
-  (
-    7,
-    'TRX-423-677',
-    '2020/05/07 09:42:08',
-    '2020/05/07 09:42:43',
-    'Bandung',
-    'BDG',
-    'Kain Garmen',
-    'Kodi',
-    '50'
-  ),
-  (
-    8,
-    'TRX-468-723',
-    '2020/05/07 09:42:30',
-    '2020/05/07 09:43:01',
+    23,
+    'TRX-157-616',
+    '2020/05/16 01:00:57',
+    '2020/05/16 01:04:30',
     'Jakarta Selatan',
     'JKS',
-    'Onderdil Motor',
+    'Genset',
     'Unit',
-    '701'
-  ),
-  (
-    9,
-    'TRX-341-822',
-    '2020/05/07 09:44:32',
-    '2020/05/07 09:52:13',
-    'Bogor',
-    'BGR',
-    'Plat Besi',
-    'Unit',
-    '101'
-  ),
-  (
-    10,
-    'TRX-180-997',
-    '2020/05/07 09:53:58',
-    '2020/05/07 09:54:03',
-    'Singapore',
-    'SG',
-    'xRAY',
-    'Piece',
-    '35'
-  ),
-  (
-    11,
-    'TRX-211-650',
-    '2020/05/07 09:56:21',
-    '2020/05/07 09:56:59',
-    'Jakarta Selatan',
-    'JKS',
-    'AQUA',
-    'Piece',
-    '100'
-  ),
-  (
-    12,
-    'TRX-211-650',
-    '2020/05/07 09:56:21',
-    '2020/05/07 10:10:15',
-    'Jakarta Selatan',
-    'JKS',
-    'AQUA',
-    'Piece',
-    '1000'
-  ),
-  (
-    13,
-    'TRX-372-900',
-    '2020/05/07 10:13:55',
-    '2020/05/07 10:14:05',
-    'Tegal',
-    'TGL',
-    'Semen',
-    'Sak',
-    '20'
-  ),
-  (
-    14,
-    'TRX-372-900',
-    '2020/05/07 10:13:55',
-    '2020/05/07 11:01:31',
-    'Tegal',
-    'TGL',
-    'Semen',
-    'Sak',
-    '234'
-  ),
-  (
-    15,
-    'TRX-243-579',
-    '2020/05/15 09:42:36',
-    '2020/05/15 09:57:09',
-    'Tangerang',
-    'TGR',
-    'HARNESS BODY',
-    'Kilogram',
-    '10'
+    '13'
   );
-
---
--- Triggers `outcoming`
---
-DELIMITER $ $ CREATE TRIGGER `proses_keluar`
-AFTER
-INSERT
-  ON `outcoming` FOR EACH ROW
-UPDATE
-  incoming
-SET
-  jumlah = jumlah - NEW.jumlah
-WHERE
-  transaksi_id = NEW.transaksi_id $ $ DELIMITER;
 
 -- --------------------------------------------------------
 --
@@ -434,8 +153,8 @@ CREATE TABLE `test` (
 --
 CREATE TABLE `units` (
   `id` int(11) NOT NULL,
-  `code` varchar(10) COLLATE utf8_unicode_ci NOT NULL,
-  `name` varchar(10) COLLATE utf8_unicode_ci NOT NULL
+  `code` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;
 
 --
@@ -445,7 +164,9 @@ INSERT INTO
   `units` (`id`, `code`, `name`)
 VALUES
   (1, 'KG', 'Kilogram'),
-  (3, 'U', 'Unit');
+  (3, 'U', 'Unit'),
+  (4, 'KL', 'Koli'),
+  (5, 'PCS', 'Piece');
 
 -- --------------------------------------------------------
 --
@@ -504,14 +225,34 @@ VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `v_in_out_reporting` (
-  `jumlah_keluar` varchar(10),
-  `jumlah_masuk` double,
-  `kode` varchar(100),
+  `jumlah_keluar` double,
+  `jumlah_masuk` decimal(65, 0),
+  `kode_barang` varchar(100),
   `lokasi` varchar(100),
   `nama_barang` varchar(100),
   `satuan` varchar(50),
-  `sisa` int(255)
+  `sisa` double
 );
+
+-- --------------------------------------------------------
+--
+-- Stand-in structure for view `v_total_in`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_total_in` (
+  `jumlah_masuk` decimal(65, 0),
+  `kode_barang` varchar(100),
+  `lokasi` varchar(100),
+  `nama_barang` varchar(100),
+  `satuan` varchar(50)
+);
+
+-- --------------------------------------------------------
+--
+-- Stand-in structure for view `v_total_out`
+-- (See below for the actual view)
+--
+CREATE TABLE `v_total_out` (`nama_barang` varchar(100), `total_out` double);
 
 -- --------------------------------------------------------
 --
@@ -523,18 +264,60 @@ CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`localhost` SQL SECURITY DEFINER 
 select
   `a`.`nama_barang` AS `nama_barang`,
   `a`.`lokasi` AS `lokasi`,
-  `a`.`kode_barang` AS `kode`,
+  `a`.`kode_barang` AS `kode_barang`,
   `a`.`satuan` AS `satuan`,
-(`b`.`jumlah` + `a`.`jumlah`) AS `jumlah_masuk`,
-  `b`.`jumlah` AS `jumlah_keluar`,
-  `a`.`jumlah` AS `sisa`
+  `a`.`jumlah_masuk` AS `jumlah_masuk`,
+  `b`.`total_out` AS `jumlah_keluar`,
+(`a`.`jumlah_masuk` - `b`.`total_out`) AS `sisa`
 from
   (
-    `incoming` `a`
-    join `outcoming` `b` on((`a`.`nama_barang` = `b`.`nama_barang`))
-  )
-where
-  (`a`.`jumlah` >= 0);
+    `v_total_in` `a`
+    left join `v_total_out` `b` on(
+      (
+        convert(`a`.`nama_barang` using utf8) = convert(`b`.`nama_barang` using utf8)
+      )
+    )
+  );
+
+-- --------------------------------------------------------
+--
+-- Structure for view `v_total_in`
+--
+DROP TABLE IF EXISTS `v_total_in`;
+
+CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`localhost` SQL SECURITY DEFINER VIEW `v_total_in` AS
+select
+  `incoming`.`nama_barang` AS `nama_barang`,
+  `incoming`.`lokasi` AS `lokasi`,
+  `incoming`.`kode_barang` AS `kode_barang`,
+  `incoming`.`satuan` AS `satuan`,
+  sum(`incoming`.`jumlah`) AS `jumlah_masuk`
+from
+  `incoming`
+group by
+  `incoming`.`nama_barang`,
+  `incoming`.`lokasi`,
+  `incoming`.`kode_barang`,
+  `incoming`.`satuan`
+having
+  (sum(`incoming`.`jumlah`) >= 0);
+
+-- --------------------------------------------------------
+--
+-- Structure for view `v_total_out`
+--
+DROP TABLE IF EXISTS `v_total_out`;
+
+CREATE ALGORITHM = UNDEFINED DEFINER = `root` @`localhost` SQL SECURITY DEFINER VIEW `v_total_out` AS
+select
+  `outcoming`.`nama_barang` AS `nama_barang`,
+  sum(`outcoming`.`jumlah`) AS `total_out`
+from
+  `outcoming`
+group by
+  `outcoming`.`nama_barang`
+having
+  (sum(`outcoming`.`jumlah`) >= 0);
 
 --
 -- Indexes for dumped tables
@@ -589,7 +372,7 @@ ALTER TABLE
   `incoming`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 12;
+  AUTO_INCREMENT = 20;
 
 --
 -- AUTO_INCREMENT for table `outcoming`
@@ -598,7 +381,7 @@ ALTER TABLE
   `outcoming`
 MODIFY
   `id` int(10) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 16;
+  AUTO_INCREMENT = 24;
 
 --
 -- AUTO_INCREMENT for table `test`
@@ -615,7 +398,7 @@ ALTER TABLE
   `units`
 MODIFY
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  AUTO_INCREMENT = 4;
+  AUTO_INCREMENT = 6;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,6 +1,6 @@
 <div class="col-6">
                   <p class="lead">Laporan Keluar - Masuk Barang Gudang</p>
-
+                  {{ .excellSuccess}}
                   <div class="table-responsive">
                     <table class="table">
                       <tr>
@@ -8,9 +8,9 @@
                         <th style="width:50%">Lokasi</th>
                         <th style="width:50%">Kode</th>
                         <th style="width:50%">Satuan</th>
-                        <th style="width:50%">Jumlah Barang di Gudang</th>
-                        <th style="width:50%">Jumlah Barang Dikirim</th>
-                        <th style="width:50%">Total Barang</th>
+                        <th style="width:50%">Jumlah Barang Masuk</th>
+                        <th style="width:50%">Jumlah Barang Keluar</th>
+                        <th style="width:50%">Sisa Barang</th>
                       </tr>
 
                       {{range $index,$elem := .list}}
@@ -25,5 +25,7 @@
                       </tr>
                       {{end}}
                     </table>
+
+                    <a href="/reporting/export"class="btn btn-success">Export To Excell</a>
                   </div>
                 </div>
