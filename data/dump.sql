@@ -15,28 +15,7 @@ SET
 --
 -- Database: `web_gudang`
 --
-DELIMITER $ $ --
--- Procedures
---
-CREATE DEFINER = `root` @`localhost` PROCEDURE `ambil` () BEGIN
-SELECT
-  nama_barang
-FROM
-  outcoming;
 
-END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `ambilNama` () BEGIN
-SELECT
-  namabarang
-FROM
-  outcoming;
-
-END $ $ CREATE DEFINER = `root` @`localhost` PROCEDURE `selectNamaBarang` () BEGIN
-SELECT
-  nama_barang
-FROM
-  outcoming;
-
-END $ $ DELIMITER;
 
 -- --------------------------------------------------------
 --

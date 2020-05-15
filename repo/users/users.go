@@ -5,6 +5,7 @@ import(
 	"wms/models"
 	"github.com/astaxie/beego"
 	"golang.org/x/crypto/bcrypt"
+	"fmt"
 )
 
 type UsersRepo struct{
@@ -24,6 +25,7 @@ func (repo *UsersRepo) All() (result []models.Users ,err error){
 func (repo *UsersRepo) Add(form models.Users) (string, error){
 	hashPassword := repo.HashingWithSalt(form.Password)
 	form.Password = hashPassword
+	fmt.Println(form)
 	database.DB.Create(&form)
 	return "berhasil menambahkan users", nil
 }

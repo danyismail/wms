@@ -5,6 +5,9 @@
                     <table class="table">
                       <tr>
                         <th style="width:50%">Nama Barang</th>
+                        <th style="width:50%">Lokasi</th>
+                        <th style="width:50%">Kode</th>
+                        <th style="width:50%">Satuan</th>
                         <th style="width:50%">Jumlah Barang di Gudang</th>
                         <th style="width:50%">Jumlah Barang Dikirim</th>
                         <th style="width:50%">Total Barang</th>
@@ -13,9 +16,12 @@
                       {{range $index,$elem := .list}}
                       <tr>
                         <td>{{$elem.NamaBarang}}</td>
-                        <td>{{$elem.StockGudang}}</td>
-                        <td>{{$elem.StockTerkirim}}</td>
-                        <td>{{$elem.TotalAll}}</td>
+                        <td>{{$elem.Lokasi}}</td>
+                        <td>{{$elem.Kode}}</td>
+                        <td>{{$elem.Satuan}}</td>
+                        <td><span >{{$elem.JumlahMasuk}}</span></td>
+                        <td><span >{{$elem.JumlahKeluar}}</span></td>
+                        <td><span >{{$elem.Sisa}}</span></td>
                       </tr>
                       {{end}}
                     </table>

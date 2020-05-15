@@ -6,26 +6,32 @@ import(
 	"github.com/astaxie/beego"
 )
 
-type AuthController struct{
+type MainController struct{
 	beego.Controller
 }
 
 
-func(c *AuthController) Login(){
+func(c *MainController) Login(){
+	// flash := beego.ReadFromRequest(&c.Controller)
+	flash := beego.NewFlash()
 	repo := Auth.AuthRepo{}
 	form := models.LoginForm{}
 	form.Email = c.GetString("email")
 	form.Password = c.GetString("password")
-	result := repo.Login(form)
-	if !result  {
-		c.Data["errormsg"] = "Login gagal"
-		c.Layout = "template.html"
+	result, text := repo.Login(form)
+	if text == "Login Gagal"  {
+		flash.Notice("Login gagal!")
+		flash.Store(&c.Controller)
+		c.Data["pesanError"] = "ada error"
 		c.Redirect("/", 302)
+		return
+	} else {
+		c.Data["dataUser"] = result
+		c.Layout = "template.html"
+		c.Redirect("/dashboard", 302)
 	}
-	c.Data["errormsg"] = "Login Berhasil"
-	c.Layout = "template.html"
-	c.Redirect("/dashboard", 302)
 }
+
 
 
 

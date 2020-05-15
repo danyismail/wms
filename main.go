@@ -17,6 +17,8 @@ func main() {
 		// beego.BConfig.WebConfig.XSRFExpire = 3600
 	}
 
+
+	
 	beego.Run()
 }
 

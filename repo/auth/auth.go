@@ -13,16 +13,21 @@ type AuthRepo struct{
 
 
 
-func(repo *AuthRepo) Login(form models.LoginForm) bool{
+func(repo *AuthRepo) Login(form models.LoginForm) (result models.LoginResponse, text string){
 	//Logicnya cari di table users yg emailnya == input email, kalo ada 
 	//maka ambil passwordnya lalu di compare
 	userModel := models.LoginResponse{}
-	database.DB.Raw("SELECT username, email, password, role FROM users WHERE email = ?", form.Email).Scan(&userModel)
-	match := repo.CheckPassword(userModel.Password, form.Password)
-	if !match{
-		return false
+	err := database.DB.Raw("SELECT username, email, password, role FROM users WHERE email = ?", form.Email).Scan(&userModel)
+	if err != nil {
+		return userModel, "Login Gagal"
 	}
-	return true
+	match := repo.CheckPassword(userModel.Password, form.Password)
+		if !match{
+			beego.Info("Login Gagal")
+		} else {
+			return userModel, "Login Gagal"
+		}
+	return userModel, "Login Berhasil"
 }
 
 func (repo *AuthRepo) CheckPassword(hashPwd string, plainPwd string) bool{

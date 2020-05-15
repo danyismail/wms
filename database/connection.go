@@ -11,7 +11,7 @@ var DB *gorm.DB
 
 func init(){
 	fmt.Println("koneksi database terpanggil")
-	db, err := gorm.Open("mysql", "root:root@(localhost:8889)/web_gudang?charset=utf8&parseTime=True&loc=Local")
+	db, err := gorm.Open("mysql", "danyismail:webgudang@(localhost:3306)/web_gudang?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Println("gagal koneksi ke database")
 	} else {

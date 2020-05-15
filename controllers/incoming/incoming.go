@@ -20,6 +20,12 @@ type MainController struct {
 func (c *MainController) All() {
 	goodsRepo := repo.GoodsRepo{}
 
+	flash := beego.ReadFromRequest(&c.Controller)
+	if ok := flash.Data["error"]; ok != "" {
+		// Display error messages
+		c.Data["flash"] = ok
+	}
+
 	result, err := goodsRepo.GetAll()
 	unitsRepo := Units.UnitRepo{}
 	listUnits, errGetListUnits := unitsRepo.GetAll()
