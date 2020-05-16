@@ -3,6 +3,7 @@ package controllers
 import (
 	"github.com/astaxie/beego"
 	Dashboard "wms/repo/dashboard"
+	"fmt"
 )
 
 
@@ -11,6 +12,12 @@ type MainController struct {
 }
 
 func (c *MainController) Get(){
+	v := c.GetSession("controllerSession")
+    if v == nil {
+		fmt.Println("session kosong")
+		c.Redirect("/", 302)
+	}
+	fmt.Println("session ada")
 	repo := Dashboard.RepoDashboard{}
 
 	totalIn, errTotalIn := repo.GetTotalIncomingGoods()

@@ -15,7 +15,9 @@ import (
 func init() {
 
 	//GOODS ROUTER
-	beego.Router("/", &Login.MainController{})
+	beego.Router("/", &Login.LoginController{}, "get:Get")
+	beego.Router("/login", &Login.LoginController{},"post:Login")
+	beego.Router("/logout", &Login.LoginController{},"get:Logout")
 	beego.Router("/dashboard", &Dashboard.MainController{})
 	beego.Router("/incoming-goods",&Incoming.MainController{}, "get:All")
 	beego.Router("/incoming-goods/add",&Incoming.MainController{}, "post:Add")

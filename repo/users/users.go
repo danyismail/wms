@@ -30,6 +30,15 @@ func (repo *UsersRepo) Add(form models.Users) (string, error){
 	return "berhasil menambahkan users", nil
 }
 
+func (repo *UsersRepo) Login(form models.LoginForm) string{
+	fmt.Println(form.Email, form.Password)
+	if form.Email == "admin@wms.com" && form.Password == "admin"{
+		return "berhasil login"
+	} else {
+		return "gagal login"
+	}
+}
+
 func (repo *UsersRepo) HashingWithSalt(password string) string{
 	//rubah password ke byte, karena syarat untuk hashing data nya harus dalam bentuk byte
 	bytePassword := []byte(password)

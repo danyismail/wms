@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"math/rand"
 	"time"
+	
 )
 
 
@@ -18,6 +19,11 @@ type MainController struct {
 
 
 func (c *MainController) All() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	goodsRepo := repo.GoodsRepo{}
 
 	flash := beego.ReadFromRequest(&c.Controller)
@@ -82,6 +88,11 @@ func (c *MainController) Add() {
 
 //Incoming Detail
 func (c *MainController) Detail() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	goodsRepo := repo.GoodsRepo{}
 
 	id := c.Ctx.Input.Param(":id")
@@ -113,6 +124,11 @@ func (c *MainController) Detail() {
 }
 
 func (c *MainController) DetailProccess() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	goodsRepo := repo.GoodsRepo{}
 
 	id := c.Ctx.Input.Param(":id")

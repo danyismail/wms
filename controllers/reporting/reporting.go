@@ -13,6 +13,11 @@ type ReportingController struct {
 }
 
 func (c *ReportingController) All() {
+	//cek session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	//flash
 	flash := beego.ReadFromRequest(&c.Controller)
 	if n, ok := flash.Data["success"]; ok {
@@ -41,6 +46,11 @@ func (c *ReportingController) All() {
 }
 
 func (c *ReportingController) Export() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	flash := beego.NewFlash()
 	exp := WHelper.HelperModule{}
 	result := exp.ExportToExcell()

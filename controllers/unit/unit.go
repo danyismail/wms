@@ -12,7 +12,12 @@ type UnitController struct {
 	beego.Controller
 }
 
-func (c *UnitController) All() {	
+func (c *UnitController) All() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }	
 	repo := Units.UnitRepo{}
 	result, err := repo.GetAll()
 
@@ -47,6 +52,11 @@ func (c *UnitController) Add() {
 }
 
 func (c *UnitController) Detail() {	
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	repo := Units.UnitRepo{}
 	id := c.Ctx.Input.Param(":id")
 	i, _ := strconv.Atoi(id)
@@ -84,6 +94,11 @@ func (c *UnitController) Update() {
 }
 
 func (c *UnitController) Delete() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	unitRepo := Units.UnitRepo{}
 
 	id := c.Ctx.Input.Param(":id")

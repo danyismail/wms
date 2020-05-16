@@ -15,6 +15,11 @@ type UserController struct {
 
 
 func (c *UserController) All() {
+	//Check session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	usersRepo := Users.UsersRepo{}
 	result, errGetUsers := usersRepo.All()
 

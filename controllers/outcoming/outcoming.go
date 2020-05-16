@@ -18,6 +18,11 @@ type OutController struct {
 }
 
 func (c *OutController) All() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	repoOutcoming := Goods.GoodsRepo{}
 	result, err := repoOutcoming.AllOut()
 	if err != nil {
@@ -32,6 +37,11 @@ func (c *OutController) All() {
 }
 
 func (c *OutController) Detail() {
+	//Check Session
+	v := c.GetSession("controllerSession")
+    if v == nil {
+        c.Redirect("/", 302)
+    }
 	repoOutcoming := Goods.GoodsRepo{}
 	i, _ := strconv.Atoi(c.Ctx.Input.Param(":id"))
 	
