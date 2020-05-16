@@ -13,6 +13,20 @@ type ReportingController struct {
 }
 
 func (c *ReportingController) All() {
+	//flash
+	flash := beego.ReadFromRequest(&c.Controller)
+	if n, ok := flash.Data["success"]; ok {
+        // Display settings successful
+        c.TplName = "reporting/success.html"
+    } else if n, ok = flash.Data["error"]; ok {
+        // Display error messages
+        c.TplName = "reporting/success.html"
+    } else {
+		// Display default settings page
+		fmt.Println(n, "Ini dari N")
+        c.TplName = "reporting/success.html"
+    }
+	//logic
 	repo := Reporting.ReportRepo{}
 	result, err := repo.All()
 	if err != nil {
@@ -27,11 +41,20 @@ func (c *ReportingController) All() {
 }
 
 func (c *ReportingController) Export() {
+	flash := beego.NewFlash()
 	exp := WHelper.HelperModule{}
 	result := exp.ExportToExcell()
-	c.Data["excellSuccess"] = result
-	c.Layout = "template.html"
-	c.TplName = "reporting/success-export.html" //buat load halaman
+	fmt.Println(result)
+	if(!result){
+		flash.Error("Failed to generated excell file")
+	}
+	// c.Data["excellSuccess"] = result
+	// c.Layout = "template.html"
+	// c.TplName = "reporting/success-export.html" //buat load halaman
+	flash.Success("Successfully Generate Excell File")
+	// flash.Success("Success..")
+	flash.Store(&c.Controller)
+	c.Redirect("/reporting", 302)
 }
 
 

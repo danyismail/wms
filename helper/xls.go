@@ -11,11 +11,12 @@ type HelperModule struct{}
 
 var Xlsx *excelize.File
 
-func (hm *HelperModule) ExportToExcell() string{
+func (hm *HelperModule) ExportToExcell() bool{
 	repo := RepoReporting.ReportRepo{}
 	result, err := repo.All()
 	if err != nil {
 		fmt.Println("Error saat mengambil data reporting...")
+		return false
 	}
 	Xlsx = excelize.NewFile()
 
@@ -32,7 +33,8 @@ func (hm *HelperModule) ExportToExcell() string{
 
 	errFilterXLS := Xlsx.AutoFilter(sheet1Name, "A1", "F1", "")
 	if errFilterXLS != nil {
-	    fmt.Println(errFilterXLS)
+		fmt.Println(errFilterXLS)
+		return false
 	}
 
 
@@ -53,30 +55,12 @@ func (hm *HelperModule) ExportToExcell() string{
 
 	errCreateXLS := Xlsx.SaveAs("./static/laporan-keluar-masuk-barang.xlsx")
 	if errCreateXLS != nil {
-    	fmt.Println(err)
+		fmt.Println(err)
+		return false
 	}
-
-	/*
-	var write http.ResponseWriter
-	var read *http.Request
-	DownloadExcell(write, read, Xlsx)
-	*/
 
 	fmt.Println("Created xlsx success")
-	return "Created xls sucess..."
+	return true
 }
 
-/*
-func DownloadExcell(w http.ResponseWriter, r *http.Request, file *excelize.File){
-	w.Header().Set("Content-Type", "application/octet-stream")
-  	w.Header().Set("Content-Disposition", "attachment; filename,=userInputData.xlsx")
-  	w.Header().Set("File-Name", "Data.xlsx")
-  	w.Header().Set("Content-Transfer-Encoding", "binary")
-  	w.Header().Set("Expires", "0")
-	errWrite := file.Write(w)
-	if errWrite != nil {
-		fmt.Println("error download excell")
-	}
-}
-*/
 
